@@ -1,4 +1,4 @@
-package com.bienen.intprep.challenges.coding_challenges;
+package com.bienen.intprep.challenges;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
