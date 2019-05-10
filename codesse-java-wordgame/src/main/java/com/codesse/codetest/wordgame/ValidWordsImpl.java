@@ -10,7 +10,7 @@ import java.util.Vector;
  */
 public class ValidWordsImpl implements ValidWords {
 
-	Vector v = new Vector();
+	Vector<String> v = new Vector<String>();
 
 	public ValidWordsImpl() {
 		try {

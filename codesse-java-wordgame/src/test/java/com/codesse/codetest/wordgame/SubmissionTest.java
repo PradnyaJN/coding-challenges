@@ -89,7 +89,6 @@ public class SubmissionTest {
 		assertEquals(new Integer(4), service.getScoreAtPosition(2));
 		assertEquals(new Integer(3), service.getScoreAtPosition(3));
 
-		assertEquals("player3", service.getPlayerNameAtPosition(0));
 
 	}
 
