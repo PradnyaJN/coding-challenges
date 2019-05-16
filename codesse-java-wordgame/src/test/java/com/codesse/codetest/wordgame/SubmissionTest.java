@@ -94,37 +94,4 @@ public class SubmissionTest {
 
 	}
 
-	@Test
-	public void testDeletionFromList() {
-		String[] arr = { "all", "really", "wooly", "all", "wood" };
-		List<String> list = Arrays.asList(arr);
-//		for (String string : list) {
-//			if (string.equals("all")) {
-//				int index = list.indexOf("");
-//				//list.remove(index);
-//			}
-//
-//		}
-//		System.out.println(list);
-//
-//		list = Arrays.asList(arr);
-//		while (list.iterator().hasNext()) {
-//			String type = list.iterator().next();
-//			int index = list.indexOf("all");
-//			//list.remove(index);
-//
-//		}
-		System.out.println(list);
-		list = Arrays.asList(arr);
-
-		for (int i = 0; i < list.size(); i++) {
-			if(list.get(i).equals("all")) {
-				list.remove(i);
-			}
-		}
-		System.out.println(list);
-
-
-	}
-
 }
