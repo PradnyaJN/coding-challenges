@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.IntStream;
 
 /**
  * This is the shell implementation of the WordGame interface. It is the class
@@ -64,21 +64,15 @@ public class WordGameImpl implements WordGame {
 
 		WordEntry wordEntry = wordsSubmitted.computeIfAbsent(word, (t) -> new WordEntry(t));
 		wordEntry.submit(entry);
+		System.out.println("LedgerBoard:" + ledgerBoard.toString());
 		return wordEntry.getScore();
 	}
 
 	private void updateLedgerBoard(String word) {
 		if (!ledgerBoard.contains(word)) {
-			int index = 0;
-			for (String string : ledgerBoard) {
-				if (string.length() >= word.length()) {
-					index++;
-				} else {
-					break;
-				}
-
-			}
-
+			int index = IntStream.range(0, ledgerBoard.size()).filter(i -> ledgerBoard.get(i).length() < word.length())
+					.findFirst().orElseGet(() -> (ledgerBoard.size() == 0) ? 0 : ledgerBoard.size() - 1);
+			System.out.println("Index" + index);
 			ledgerBoard.add(index, word);
 
 		}
@@ -90,15 +84,8 @@ public class WordGameImpl implements WordGame {
 
 	private boolean isWordMatchesWithStartingString(String word) {
 		Map<Character, Integer> charmap = createCharMap(word);
-		boolean result = true;
-		for (Entry<Character, Integer> valueEntry : charmap.entrySet()) {
-			if (!charmapStartString.containsKey(valueEntry.getKey())
-					|| (charmapStartString.get(valueEntry.getKey()).compareTo(valueEntry.getValue()) < 0)) {
-				return false;
-			}
-		}
-
-		return result;
+		return charmap.entrySet().stream().noneMatch(valueEntry -> (!charmapStartString.containsKey(valueEntry.getKey())
+				|| charmapStartString.get(valueEntry.getKey()).compareTo(valueEntry.getValue()) < 0));
 	}
 
 	private Map<Character, Integer> createCharMap(String word) {

@@ -2,6 +2,9 @@ package com.codesse.codetest.wordgame;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -88,6 +91,38 @@ public class SubmissionTest {
 		assertEquals(new Integer(6), service.getScoreAtPosition(1));
 		assertEquals(new Integer(4), service.getScoreAtPosition(2));
 		assertEquals(new Integer(3), service.getScoreAtPosition(3));
+
+	}
+
+	@Test
+	public void testDeletionFromList() {
+		String[] arr = { "all", "really", "wooly", "all", "wood" };
+		List<String> list = Arrays.asList(arr);
+//		for (String string : list) {
+//			if (string.equals("all")) {
+//				int index = list.indexOf("");
+//				//list.remove(index);
+//			}
+//
+//		}
+//		System.out.println(list);
+//
+//		list = Arrays.asList(arr);
+//		while (list.iterator().hasNext()) {
+//			String type = list.iterator().next();
+//			int index = list.indexOf("all");
+//			//list.remove(index);
+//
+//		}
+		System.out.println(list);
+		list = Arrays.asList(arr);
+
+		for (int i = 0; i < list.size(); i++) {
+			if(list.get(i).equals("all")) {
+				list.remove(i);
+			}
+		}
+		System.out.println(list);
 
 
 	}
