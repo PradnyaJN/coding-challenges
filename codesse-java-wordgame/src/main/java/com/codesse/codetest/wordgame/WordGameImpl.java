@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -18,13 +19,11 @@ public class WordGameImpl implements WordGame {
 	Map<String, Player> playerMap = new ConcurrentHashMap<String, WordGameImpl.Player>();
 	List<String> ledgerBoard = new LinkedList<String>();
 
-	private String startingString;
 	private ValidWords validWords;
 	Map<Character, Integer> charmapStartString = new HashMap<Character, Integer>();
 
 	public WordGameImpl(String startingSetOfWords, ValidWords validWords) {
-		startingString = startingSetOfWords;
-		charmapStartString = createCharMap(startingString);
+		charmapStartString = createCharMap(startingSetOfWords);
 		this.validWords = validWords;
 	}
 
@@ -89,13 +88,17 @@ public class WordGameImpl implements WordGame {
 	}
 
 	private Map<Character, Integer> createCharMap(String word) {
-		Map<Character, Integer> charToCountMap = new HashMap<Character, Integer>();
 
-		for (char charstart : word.toCharArray()) {
-			charToCountMap.merge(charstart, 1, (k, v) -> (v == null) ? 1 : v + 1);
+		// Create frequency of character instring map using Streams and Collectors
+		Map<Character, Integer> ch1 = word.chars().boxed()
+				.collect(Collectors.toMap(i -> Character.valueOf((char) i.intValue()), (Integer t) -> 1, Integer::sum));
+// 		Using map.merge method
+//		Map<Character, Integer> charToCountMap = new HashMap<Character, Integer>();
+//		for (char charstart : word.toCharArray()) {
+//			charToCountMap.merge(charstart, 1, Integer::sum);
+//		}
 
-		}
-		return charToCountMap;
+		return ch1;
 	}
 
 	class Player {
